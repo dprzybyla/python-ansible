@@ -1,0 +1,4 @@
+- name: Generate configuration files
+  template: src=switch.j2 dest=/home/dprzybyla/week5/CFGS/{{item.hostname}}.txt
+  with_items: test_switches
+

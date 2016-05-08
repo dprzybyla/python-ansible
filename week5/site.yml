@@ -1,0 +1,7 @@
+---
+- name: Generate switch configuration giles
+  hosts: localhost
+
+  roles:
+    - switch
+

@@ -1,0 +1,18 @@
+---
+
+- name: Cisco-Ansible File transfer
+  hosts: cisco
+  gather_facts: False
+
+  tasks:
+    - name: Test a file transfer to Cisco router.
+      cisco_file_transfer:
+        source_file="/home/dprzybyla/week6/davetest.txt"
+        dest_file=davetest.txt
+        overwrite=true
+        enable_scp=true
+        host=50.76.53.27
+        port=22
+        username=pyclass
+        password=88newclass
+

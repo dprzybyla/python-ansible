@@ -1,0 +1,22 @@
+---
+
+- name: Arista-Ansible Exercise3
+  hosts: arista
+
+  tasks:
+    - name: Set interface description.
+      eos_interface: name=Ethernet6 description="*** IN USE ***"
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Set interface as trunk, native VLAN 1, allowed VLANs 303, 306, and 309.
+      eos_switchport: name=Ethernet6 mode=trunk trunk_native_vlan=1 trunk_allowed_vlans=303,306,309
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+

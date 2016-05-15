@@ -1,0 +1,34 @@
+---
+
+- name: Arista-Ansible Exercise4
+  hosts: arista
+
+  tasks:
+    - name: Reset interface description to default.
+      eos_interface: name=Ethernet6 description=""
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Configure for access mode om VLAN 1, native trunk VLAN 1, all VLANs allowed.
+      eos_switchport: name=Ethernet6 mode=access access_vlan=1 trunk_allowed_vlans=1-4094 trunk_native_vlan=1
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Remove VLANs created earlier.
+      eos_vlan: name={{ item.vlan_name }} vlanid={{ item.vlan_id }} state=absent
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+      with_items:
+        - {vlan_name: primary, vlan_id: 303}
+        - {vlan_name: secondary, vlan_id: 306}
+        - {vlan_name: tertiary, vlan_id: 309}
+
